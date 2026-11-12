@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ALEXIS VIP PORTAL — Multi-Provider Slot, Togel 4D & Live Arcade</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <!-- TOP UTILITY BAR -->
+  <div class="top-utility">
+    <div class="utility-left">
+      <span class="live-dot"></span> SERVER ONLINE &nbsp;|&nbsp; <span id="clockDisplay">--:--:-- WIB</span>
+    </div>
+    <div class="utility-right">
+      <button class="util-link" id="btnPromoModal">🎁 PROMO & BONUS</button>
+      <button class="util-link" id="btnAdminPanel">🛡️ ADMIN PANEL</button>
+      <button class="util-link" id="btnSoundToggle">🔊 AUDIO: ON</button>
+    </div>
+  </div>
+
+  <!-- MAIN HEADER -->
+  <header class="main-header">
+    <div class="logo-area">
+      <div class="crown-badge">👑</div>
+      <div>
+        <h1>ALEXIS<span>VIP</span></h1>
+        <p>ULTIMATE SLOT &amp; 4D POOLS PORTAL</p>
+      </div>
+    </div>
+
+    <div class="marquee-box">
+      <span class="marquee-tag">INFO TERKINI</span>
+      <div class="marquee-track">
+        <div class="marquee-text">
+          🔥 JACKPOT GRAND PROGRESSIVE: <strong id="topJackpot">884.920.500</strong> KOIN &nbsp;•&nbsp;
+          🀄 MAHJONG WAYS 1, 2 &amp; 3 RTP LIVE 98.4% &nbsp;•&nbsp;
+          ⚡ GATES OF OLYMPUS PETIR x500 AKTIF &nbsp;•&nbsp;
+          🎱 PASARAN SGP, HK, SDY &amp; MACAU BUKA 24 JAM
+        </div>
+      </div>
+    </div>
+
+    <!-- AUTH / USER WALLET AREA -->
+    <div class="account-area" id="guestBox">
+      <button class="btn-outline" id="btnOpenLogin">MASUK</button>
+      <button class="btn-gold" id="btnOpenRegister">DAFTAR VIP</button>
+    </div>
+
+    <div class="account-area hidden" id="userBox">
+      <div class="user-profile-pill">
+        <span class="vip-tag" id="userVipBadge">VIP 1</span>
+        <div>
+          <strong id="displayUsername">Player</strong>
+          <small>Saldo: <span class="gold-text" id="displayBalance">0</span></small>
+        </div>
+      </div>
+      <button class="btn-gold small" id="btnQuickDeposit">+ DEPOSIT</button>
+      <button class="btn-outline small" id="btnLogout">KELUAR</button>
+    </div>
+  </header>
+
+  <!-- PRIMARY NAVIGATION MENU -->
+  <nav class="primary-nav">
+    <button class="nav-item active" data-section="lobbySection">🏠 LOBBY &amp; GAME</button>
+    <button class="nav-item" data-section="slotArenaSection">🎰 ARENA SLOT</button>
+    <button class="nav-item" data-section="togelArenaSection">🎱 TOGEL PASARAN</button>
+    <button class="nav-item" data-section="walletSection">💳 DEPOSIT &amp; WITHDRAW</button>
+    <button class="nav-item" data-section="historySection">📜 RIWAYAT &amp; MUTASI</button>
+  </nav>
+
+  <!-- MAIN CONTAINER -->
+  <main class="portal-container">
+
+    <!-- ==================== SECTION 1: LOBBY & KATALOG GAME ==================== -->
+    <section id="lobbySection" class="page-section active">
+      <!-- Hero Banner & Jackpot -->
+      <div class="hero-banner">
+        <div class="hero-info">
+          <span class="badge-hot">PLATFORM TERLENGKAP 2026</span>
+          <h2>SENSASI MAHJONG WAYS 1, 2, 3 &amp; PASARAN 4D RESMI</h2>
+          <p>Dilengkapi mekanik Tumble/Runtuhan Simbol, Multiplier Progresif hingga x1024, Beli Free Spin, dan 4 Pasaran Togel Utama.</p>
+          <div class="hero-actions">
+            <button class="btn-gold" onclick="launchGame('mahjong2')">🀄 MAIN MAHJONG WAYS 2</button>
+            <button class="btn-outline" onclick="switchSection('togelArenaSection')">🎱 PASANG TOGEL 4D</button>
+          </div>
+        </div>
+        <div class="jackpot-board">
+          <div class="jp-title">🏆 PROGRESSIVE JACKPOT POOL</div>
+          <div class="jp-grand" id="heroJackpot">884.920.500</div>
+          <div class="jp-sub-row">
+            <div><span>MAJOR</span><strong id="heroMajor">45.200.000</strong></div>
+            <div><span>MINOR</span><strong id="heroMinor">8.750.000</strong></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Provider Filter Bar -->
+      <div class="provider-bar">
+        <button class="prov-btn active" data-provider="ALL">🔥 SEMUA GAME (10)</button>
+        <button class="prov-btn" data-provider="PGSOFT">🀄 PG SOFT SERIES</button>
+        <button class="prov-btn" data-provider="PRAGMATIC">⚡ PRAGMATIC PLAY</button>
+        <button class="prov-btn" data-provider="HABANERO">🌶️ HABANERO &amp; CLASSIC</button>
+      </div>
+
+      <!-- Game Catalog Grid -->
+      <div class="game-catalog-grid" id="gameCatalogGrid"></div>
+    </section>
+
+    <!-- ==================== SECTION 2: ARENA SLOT ==================== -->
+    <section id="slotArenaSection" class="page-section">
+      <div class="arena-topbar">
+        <button class="btn-outline small" onclick="switchSection('lobbySection')">← Kembali ke Lobby</button>
+        <div class="current-game-title">
+          <span id="arenaGameIcon">🀄</span>
+          <div>
+            <h3 id="arenaGameName">Mahjong Ways 2</h3>
+            <small id="arenaGameProvider">PG SOFT • Tumble &amp; Multiplier Progresif</small>
+          </div>
+        </div>
+        <div class="arena-stats">
+          <span class="rtp-pill">RTP LIVE: <strong id="arenaRtp">98.4%</strong></span>
+          <span class="ways-pill" id="arenaWays">1024 WAYS / TUMBLE</span>
+        </div>
+      </div>
+
+      <!-- Slot Machine Cabinet -->
+      <div class="cabinet-wrapper">
+        <!-- Multiplier Ladder (Mahjong & Olympus Style) -->
+        <div class="multiplier-ladder" id="multiplierLadder">
+          <div class="mult-step active" data-mult="1">1x</div>
+          <div class="mult-step" data-mult="2">2x</div>
+          <div class="mult-step" data-mult="3">3x</div>
+          <div class="mult-step" data-mult="5">5x</div>
+          <div class="mult-step" data-mult="10">10x</div>
+        </div>
+
+        <!-- Free Spin Status Banner -->
+        <div class="freespin-strip hidden" id="fsBanner">
+          🔥 FREE SPINS AKTIF! Sisa: <strong id="fsRemaining">12</strong> Putaran | Pengali Dasar: <strong id="fsBaseMult">2x</strong>
+        </div>
+
+        <!-- 5x4 Reels Matrix -->
+        <div class="reels-stage" id="reelsStage">
+          <div class="reel-col" id="col0"></div>
+          <div class="reel-col" id="col1"></div>
+          <div class="reel-col" id="col2"></div>
+          <div class="reel-col" id="col3"></div>
+          <div class="reel-col" id="col4"></div>
+        </div>
+
+        <!-- Win & Tumble Info Bar -->
+        <div class="machine-readout">
+          <div class="readout-msg" id="machineStatus">Siap berputar! Kombinasi 3+ simbol dari kiri memicu Tumble.</div>
+          <div class="readout-win">TOTAL MENANG: <span id="spinWinAmount">0</span></div>
+        </div>
+
+        <!-- Control Deck -->
+        <div class="deck-controls">
+          <div class="deck-left">
+            <button class="btn-feature-buy" id="btnBuyBonus">
+              ⚡ BELI FREE SPIN
+              <span id="buyBonusPrice">200.000</span>
+            </button>
+            <button class="btn-toggle-opt" id="btnDoubleChance" title="Gandakan Peluang Scatter (+25% Bet)">
+              🍀 DOUBLE CHANCE: OFF
+            </button>
+          </div>
+
+          <div class="deck-center">
+            <button class="btn-circle" id="btnDecreaseBet">−</button>
+            <div class="bet-box">
+              <span>TOTAL TARUHAN</span>
+              <strong id="currentBetDisplay">2.000</strong>
+            </div>
+            <button class="btn-circle" id="btnIncreaseBet">+</button>
+          </div>
+
+          <div class="deck-right">
+            <button class="btn-toggle-opt" id="btnTurboSpin">⚡ TURBO</button>
+            <button class="btn-main-spin" id="btnSpinAction">SPIN</button>
+            <div class="auto-spin-group">
+              <button class="btn-toggle-opt" id="btnAutoSpin">🔄 AUTO</button>
+              <select id="autoSpinSelect">
+                <option value="10">10</option>
+                <option value="30">30</option>
+                <option value="50">50</option>
+                <option value="100">100</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Mini Paytable Bar -->
+      <div class="card mt-1">
+        <h4>💎 Informasi Simbol &amp; Perkalian (<span id="paytableGameTitle">Mahjong Ways 2</span>)</h4>
+        <div class="mini-paytable" id="miniPaytable"></div>
+      </div>
+    </section>
+
+    <!-- ==================== SECTION 3: TOGEL PASARAN RESMI ==================== -->
+    <section id="togelArenaSection" class="page-section">
+      <!-- Market Cards -->
+      <div class="markets-grid" id="marketsGrid"></div>
+
+      <div class="togel-workspace mt-1">
+        <!-- Betting Form -->
+        <div class="card">
+          <div class="card-top-row">
+            <h3>🎱 FORM PASANG TARUHAN TOGEL</h3>
+            <span class="badge-hot" id="selectedMarketBadge">PASARAN: SINGAPORE (SGP)</span>
+          </div>
+
+          <!-- Sub-tabs for Togel Types -->
+          <div class="togel-subtabs">
+            <button class="tsub-btn active" data-ttype="4D3D2D">4D / 3D / 2D</button>
+            <button class="tsub-btn" data-ttype="BB">BOLAK-BALIK (BB)</button>
+            <button class="tsub-btn" data-ttype="COLOK">COLOK BEBAS &amp; MACAU</button>
+            <button class="tsub-btn" data-ttype="SHIO">TEBAK SHIO</button>
+          </div>
+
+          <div class="togel-form-body">
+            <div class="form-grid-3">
+              <div class="input-group">
+                <label>Pasaran Tujuan</label>
+                <select id="togelMarketSelect">
+                  <option value="SGP">Singapore Pools (SGP)</option>
+                  <option value="HK">Hongkong Pools (HK)</option>
+                  <option value="SDY">Sydney Pools (SDY)</option>
+                  <option value="MACAU">Toto Macau 4D (Live)</option>
+                </select>
+              </div>
+
+              <div class="input-group" id="togelDigitsGroup">
+                <label id="togelNumberLabel">Nomor Tebakan (2 - 4 Digit)</label>
+                <div class="flex-input">
+                  <input type="text" id="togelNumberInput" maxlength="4" placeholder="Contoh: 8294" />
+                  <button type="button" class="btn-outline small" id="btnGenRandomTogel">🎲 Acak</button>
+                </div>
+              </div>
+
+              <div class="input-group hidden" id="togelShioGroup">
+                <label>Pilih Shio (2026: Shio Kuda)</label>
+                <select id="togelShioSelect">
+                  <option value="KUDA">🐎 Kuda (01, 13, 25, 37, 49, 61, 73, 85, 97)</option>
+                  <option value="ULAR">🐍 Ular (02, 14, 26, 38, 50, 62, 74, 86, 98)</option>
+                  <option value="NAGA">🐉 Naga (03, 15, 27, 39, 51, 63, 75, 87, 99)</option>
+                  <option value="KELINCI">🐇 Kelinci (04, 16, 28, 40, 52, 64, 76, 88, 00)</option>
+                  <option value="HARIMAU">🐅 Harimau (05, 17, 29, 41, 53, 65, 77, 89)</option>
+                  <option value="KERBAU">🐂 Kerbau (06, 18, 30, 42, 54, 66, 78, 90)</option>
+                  <option value="TIKUS">🐀 Tikus (07, 19, 31, 43, 55, 67, 79, 91)</option>
+                  <option value="BABI">🐖 Babi (08, 20, 32, 44, 56, 68, 80, 92)</option>
+                  <option value="ANJING">🐕 Anjing (09, 21, 33, 45, 57, 69, 81, 93)</option>
+                  <option value="AYAM">🐓 Ayam (10, 22, 34, 46, 58, 70, 82, 94)</option>
+                  <option value="MONYET">🐒 Monyet (11, 23, 35, 47, 59, 71, 83, 95)</option>
+                  <option value="KAMBING">🐐 Kambing (12, 24, 36, 48, 60, 72, 84, 96)</option>
+                </select>
+              </div>
+
+              <div class="input-group">
+                <label>Nominal Pasang (Koin)</label>
+                <input type="number" id="togelStakeInput" value="5000" min="1000" step="1000" />
+              </div>
+            </div>
+
+            <div class="discount-info-bar" id="togelDiscountInfo">
+              💡 Diskon Otomatis: <strong>4D (65%)</strong> • <strong>3D (59%)</strong> • <strong>2D (29%)</strong> | Hadiah: 4D x3000, 3D x400, 2D x70
+            </div>
+
+            <div class="togel-btn-row">
+              <button class="btn-gold" id="btnPlaceTogelBet">✅ PASANG TARUHAN &amp; UNDI LIVE</button>
+            </div>
+          </div>
+
+          <!-- Live Draw Balls Display -->
+          <div class="live-draw-panel">
+            <div class="draw-header">LIVE RESULT UNDIAN: <strong id="liveDrawMarketName">SINGAPORE POOLS</strong></div>
+            <div class="balls-container">
+              <div class="lotto-ball" id="tBall0">-</div>
+              <div class="lotto-ball" id="tBall1">-</div>
+              <div class="lotto-ball" id="tBall2">-</div>
+              <div class="lotto-ball" id="tBall3">-</div>
+            </div>
+            <div class="draw-feedback" id="togelOutcomeMsg">Masukkan angka taruhan Anda lalu klik Pasang Taruhan.</div>
+          </div>
+        </div>
+
+        <!-- Right Sidebar: Prize Table & Live Keluaran -->
+        <div class="card">
+          <h3>📊 TABEL HADIAH &amp; KELUARAN</h3>
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Jenis</th>
+                <th>Diskon</th>
+                <th>Hadiah</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td><strong>4D Full</strong></td><td>65%</td><td class="gold-text">3.000x</td></tr>
+              <tr><td><strong>3D Full</strong></td><td>59%</td><td class="gold-text">400x</td></tr>
+              <tr><td><strong>2D Belakang</strong></td><td>29%</td><td class="gold-text">70x</td></tr>
+              <tr><td><strong>Bolak-Balik</strong></td><td>20%</td><td class="gold-text">Sesuai Digit</td></tr>
+              <tr><td><strong>Colok Bebas</strong></td><td>5%</td><td class="gold-text">1.5x / digit</td></tr>
+              <tr><td><strong>Colok Macau</strong></td><td>10%</td><td class="gold-text">6x (2 digit)</td></tr>
+              <tr><td><strong>Tebak Shio</strong></td><td>5%</td><td class="gold-text">9.5x</td></tr>
+            </tbody>
+          </table>
+
+          <h4 class="mt-1">📋 Keluaran Terakhir Semua Pasaran</h4>
+          <div class="market-history-list" id="marketHistoryList"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== SECTION 4: DEPOSIT & WITHDRAW ==================== -->
+    <section id="walletSection" class="page-section">
+      <div class="wallet-grid">
+        <!-- DEPOSIT -->
+        <div class="card">
+          <h3>💰 FORMULIR DEPOSIT KOIN</h3>
+          <p class="muted-text">Isi saldo akun VIP Anda secara instan melalui Bank Lokal, E-Wallet, atau QRIS.</p>
+          <form id="depositForm" class="mt-1">
+            <div class="input-group">
+              <label>Metode Pembayaran</label>
+              <select id="depMethod">
+                <option value="QRIS INSTAN">⚡ QRIS Otomatis (Proses 1 Detik)</option>
+                <option value="BANK BCA">🏦 Transfer Bank BCA (8830-1928-44)</option>
+                <option value="BANK MANDIRI">🏦 Transfer Bank Mandiri (1390-0029-11)</option>
+                <option value="BANK BRI">🏦 Transfer Bank BRI (0078-0100-4921)</option>
+                <option value="DANA / OVO / GOPAY">📱 E-Wallet DANA / OVO / GoPay</option>
+              </select>
+            </div>
+            <div class="input-group mt-08">
+              <label>Nominal Deposit (Minimal 10.000)</label>
+              <input type="number" id="depAmount" value="100000" min="10000" step="10000" required />
+            </div>
+            <div class="quick-amounts mt-08">
+              <button type="button" class="chip-amt" onclick="setDepAmt(50000)">50.000</button>
+              <button type="button" class="chip-amt" onclick="setDepAmt(100000)">100.000</button>
+              <button type="button" class="chip-amt" onclick="setDepAmt(500000)">500.000</button>
+              <button type="button" class="chip-amt" onclick="setDepAmt(1000000)">1.000.000</button>
+            </div>
+            <div class="input-group mt-08">
+              <label>Pilih Promo Bonus</label>
+              <select id="depPromo">
+                <option value="0">Tanpa Bonus (Bebas Withdraw Kapan Saja)</option>
+                <option value="0.2">Bonus Deposit Harian +20%</option>
+                <option value="0.5">Bonus New Member VIP +50%</option>
+              </select>
+            </div>
+            <button type="submit" class="btn-gold full-btn mt-1">✅ KONFIRMASI DEPOSIT</button>
+          </form>
+        </div>
+
+        <!-- WITHDRAW -->
+        <div class="card">
+          <h3>🏧 FORMULIR WITHDRAW (PENARIKAN)</h3>
+          <p class="muted-text">Tarik saldo kemenangan Anda ke rekening bank atau e-wallet terdaftar.</p>
+          <form id="withdrawForm" class="mt-1">
+            <div class="input-group">
+              <label>Bank / E-Wallet Tujuan</label>
+              <input type="text" id="wdBank" placeholder="Contoh: BCA - 88291029 a/n Budi" required />
+            </div>
+            <div class="input-group mt-08">
+              <label>Nominal Penarikan (Minimal 50.000)</label>
+              <input type="number" id="wdAmount" value="50000" min="50000" step="10000" required />
+            </div>
+            <div class="input-group mt-08">
+              <label>Catatan (Opsional)</label>
+              <input type="text" id="wdNote" placeholder="Penarikan kemenangan slot / togel" />
+            </div>
+            <button type="submit" class="btn-outline full-btn mt-1">💸 AJUKAN WITHDRAW</button>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== SECTION 5: RIWAYAT & MUTASI ==================== -->
+    <section id="historySection" class="page-section">
+      <div class="card">
+        <div class="card-top-row">
+          <h3>📜 RIWAYAT TARUHAN &amp; MUTASI TRANSAKSI</h3>
+          <button class="btn-outline small" id="btnResetUserLogs">Bersihkan Log Saya</button>
+        </div>
+        <div class="table-responsive mt-1">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Waktu</th>
+                <th>Kategori</th>
+                <th>Keterangan</th>
+                <th>Nominal / Bet</th>
+                <th>Status / Hasil</th>
+              </tr>
+            </thead>
+            <tbody id="fullHistoryBody">
+              <tr><td colspan="5" class="center-muted">Belum ada aktivitas tercatat.</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ==================== MODALS ==================== -->
+  <!-- 1. AUTH MODAL (LOGIN / REGISTER) -->
+  <div class="modal-backdrop hidden" id="authModal">
+    <div class="modal-box">
+      <button class="modal-close" onclick="closeModal('authModal')">✕</button>
+      <div class="auth-tabs">
+        <button class="auth-tab active" id="tabLoginBtn" onclick="switchAuthTab('login')">MASUK AKUN</button>
+        <button class="auth-tab" id="tabRegBtn" onclick="switchAuthTab('register')">DAFTAR BARU</button>
+      </div>
+
+      <!-- Login Form -->
+      <form id="loginForm">
+        <div class="input-group mt-1">
+          <label>Username</label>
+          <input type="text" id="loginUsername" placeholder="Masukkan username Anda" required />
+        </div>
+        <div class="input-group mt-08">
+          <label>Password</label>
+          <input type="password" id="loginPassword" placeholder="Masukkan password" required />
+        </div>
+        <button type="submit" class="btn-gold full-btn mt-1">MASUK SEKARANG</button>
+        <p class="hint-text mt-08">Akun Demo Bawaan: <strong>vip88</strong> / password: <strong>123456</strong></p>
+      </form>
+
+      <!-- Register Form -->
+      <form id="registerForm" class="hidden">
+        <div class="input-group mt-1">
+          <label>Username Baru</label>
+          <input type="text" id="regUsername" placeholder="Minimal 4 karakter" required />
+        </div>
+        <div class="input-group mt-08">
+          <label>Password</label>
+          <input type="password" id="regPassword" placeholder="Minimal 4 karakter" required />
+        </div>
+        <div class="input-group mt-08">
+          <label>Nomor WhatsApp / Rekening</label>
+          <input type="text" id="regPhone" placeholder="0812xxxxxxxx" required />
+        </div>
+        <button type="submit" class="btn-gold full-btn mt-1">DAFTAR &amp; DAPAT BONUS 500.000</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- 2. ADMIN PANEL MODAL -->
+  <div class="modal-backdrop hidden" id="adminModal">
+    <div class="modal-box wide">
+      <button class="modal-close" onclick="closeModal('adminModal')">✕</button>
+      <h3>🛡️ ADMIN CONTROL PANEL (LOCAL DATABASE)</h3>
+      <p class="muted-text">Pantau semua user terdaftar, atur winrate/RTP global, dan kelola saldo member.</p>
+
+      <div class="admin-controls-bar mt-1">
+        <div>
+          <label>Setting Global Winrate / RTP (%):</label>
+          <input type="number" id="adminRtpInput" min="10" max="99" value="65" style="width:80px;" />
+          <button class="btn-gold small" id="btnSaveRtp">Simpan RTP</button>
+        </div>
+        <div class="muted-text">Total Member Terdaftar: <strong id="adminTotalUsers">0</strong></div>
+      </div>
+
+      <div class="table-responsive mt-1">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Username</th>
+              <th>Role / VIP</th>
+              <th>Saldo Koin</th>
+              <th>Total Putaran</th>
+              <th>Aksi Cepat</th>
+            </tr>
+          </thead>
+          <tbody id="adminUsersTable"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3. BIG WIN CELEBRATION MODAL -->
+  <div class="modal-backdrop hidden" id="celebrationModal">
+    <div class="celebration-card">
+      <div class="celeb-title" id="celebTitle">SENSATIONAL WIN!</div>
+      <div class="celeb-sub" id="celebSub">KOMBO TUMBLE x10</div>
+      <div class="celeb-amount" id="celebAmount">+0</div>
+      <button class="btn-gold" onclick="closeModal('celebrationModal')">KLAIM KEMENANGAN</button>
+    </div>
+  </div>
+
+  <!-- TOAST NOTIFICATION -->
+  <div class="toast-box hidden" id="toastBox"></div>
+
+  <footer class="site-footer">
+    ALEXIS VIP ARCADE PORTAL &copy; 2026 — Simulasi Web Interaktif Multi-Game &amp; Manajemen Akun Lokal.
+  </footer>
+
+  <script src="js/sfx.js"></script>
+  <script src="js/database.js"></script>
+  <script src="js/games-data.js"></script>
+  <script src="js/slot-machine.js"></script>
+  <script src="js/togel-system.js"></script>
+</body>
+</html>
